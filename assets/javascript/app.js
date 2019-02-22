@@ -13,7 +13,8 @@ var optionArray = [["Hulk", "Iron Man", "Captain America", "Batman Begins"], ["Q
     ["Kathryn Bigelow", "Sofia Coppola", "Patty Jenkins", "Ava DuVernay"], ["Lights Out", "Annabelle: Creation", "Shazam!", "In the Dark"],
     ["Sean Bean", "David Wenham", "Hugo Weaving", "Karl Urban"]]; // A, B, C, D, answers
 var correctArray = ["Iron Man", "Skyfall", "Kathryn Bigelow", "In the Dark", "David Wenham"]; // Correct answer
-var imageArray = []; // Images associated with question
+var imageArray = ["<img src='assets/images/iron_man.gif'>", "<img src='assets/images/bardem.gif'>", "<img src='assets/images/bigelow.gif'>",
+    "<img src='assets/images/shazam.gif'>", "<img src='assets/images/faramir.gif'>"]; // Images associated with question
 var questionCounter = 0; // Position of index in questionArray
 var userAnswer; // User's guess
 var timeCLock; // Timer for each question
@@ -41,7 +42,7 @@ $(document).on("click", ".choice-text", function(){
     userAnswer = $(this).text();
     if (userAnswer === correctArray[questionCounter]){
         clearInterval(timeCLock);
-        // Generate win
+        correctAnswer();
     } else {
         clearInterval(timeCLock);
         // Generate loss
@@ -68,7 +69,13 @@ function timerControls(){
             $(".timer").text(counter);
         }
 }
-    
+
+function correctAnswer(){
+    winTally++;
+    triviaHTML = "<div class='container' id='timeContainer'> <div class='row justify-content-center text-center'> <p class='timer-text text-center'><span class='timer'>" + counter + "</span>sec</p> </div> <div class='row justify-content-center text-center'> <p class='correct text-center'>Correct!</p></div> <div class='row justify-content-center text-center'> <div class='col-sm-12 col-md-8'>" + imageArray[questionCounter] + "</div> </div>";
+    $("#mainContent").html(triviaHTML);
+    setTimeout(hold, 5000);
+}
 // Generate win function should do the following when called:
     // Increase the winTally
     // Display new HTML that says "Correct!" and includes a relevant image
@@ -80,6 +87,17 @@ function timerControls(){
     // Display new HTML that says "Incorrect. The correct answer is " + answerArray[i] and includes a relevant image
     // Increase the question counter to move it along the array of questions
     // Waits 5 seconds before starting the counter again
+
+function hold() {
+    if (questionCounter < 5) {
+        questionCounter++;
+        playTrivia();
+        counter = 15;
+        timerControls();
+    } // else {
+        // gameOver();
+    // }
+}
 
 // Create a wait function that evaluates if the questionCounter has hit 5 (higher later)
     // If it has, it changes the HTML to display the user score tallies and a button to play again
