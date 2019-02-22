@@ -20,15 +20,18 @@ var noAnswerTally = 0; // Number of unanswered questions
 // Page should call a Start button function that adds the start button to the HTML
     // Clicking Start should call the function to Play
 function startScreen() {
-    startingHTML = "<div class='container justify-content-center' id='startScreen'> <div class='row justify-content-center'> <span class='icon'><i class='fas fa-7x fa-film'></i></span> </div> <div class='row justify-content-center'> <button class='btn btn-lg btn-outline-primary'>Let's Play!</button> </div>";
+    startingHTML = "<div class='container justify-content-center' id='startScreen'> <div class='row justify-content-center'> <span class='icon'><i class='fas fa-7x fa-film'></i></span> </div> <div class='row justify-content-center'> <button class='btn btn-lg btn-outline-primary' id='start'>Let's Play!</button> </div>";
     $("#mainContent").html(startingHTML);
 }
 
 startScreen();
 
+$(document).on("click", "#start", function(){
+    playTrivia();
+})
 
 function playTrivia(){
-    triviaHTML = "<div class='container' id='timeContainer'> <div class='row text-center'> <p class='timer-text'><span class='timer'>" + counter + "</span>sec</p> </div> <div class='row text-center'> <p class='question'>" + questionArray[questionCounter] + "</p></div> <div class='row text-center'> <div class='col-sm-12 col-md-8'> <p class='choice-text text-center'>" + optionArray[questionCounter] + "</p> <p class='choice-text text-center'>" + optionArray[questionCounter] + "</p> <p class='choice-text text-center'>" + optionArray[questionCounter] + "</p> <p class='choice-text text-center'>" + optionArray[questionCounter] + "</p> </div> </div>";
+    triviaHTML = "<div class='container' id='timeContainer'> <div class='row justify-content-center text-center'> <p class='timer-text text-center'><span class='timer'>" + counter + "</span>sec</p> </div> <div class='row justify-content-center text-center'> <p class='question text-center'>" + questionArray[questionCounter] + "</p></div> <div class='row justify-content-center text-center'> <div class='col-sm-12 col-md-8'> <p class='choice-text text-center'>" + optionArray[questionCounter] + "</p> <p class='choice-text text-center'>" + optionArray[questionCounter] + "</p> <p class='choice-text text-center'>" + optionArray[questionCounter] + "</p> <p class='choice-text text-center'>" + optionArray[questionCounter] + "</p> </div> </div>";
     $("#mainContent").html(triviaHTML);
 }
 
