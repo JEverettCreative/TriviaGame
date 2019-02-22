@@ -5,10 +5,14 @@ $(document).ready(function(){
 var counter = 15; // Timer for questions
 var startingHTML; // Screen upon initially loading page
 var triviaHTML; // HTML for the page, changes with situation
-var questionArray = ["What 2008 film officially kicked off the Marvel Cinematic Universe?", "In which Bond movie does Javier Bardem play the villain?"]; // Questions
-var optionArray = [["Hulk", "Iron Man", "Captain America", "Batman Begins"], ["Quantum of Solace", "Casino Royale", "Skyfall", "Tomorrow Never Dies"]
-    ]; // A, B, C, D, answers
-var correctArray = ["Iron Man", "Skyfall"]; // Correct answer
+var questionArray = ["What 2008 film officially kicked off the Marvel Cinematic Universe?", "In which Bond movie does Javier Bardem play the villain?",
+    "Who was the first female director to win an Oscar for Best Director?", "Which of the following films was NOT directed by David F. Sandberg?",
+    "Who played Faramir in the live action Lord of the Rings movies?"]; // Questions
+
+var optionArray = [["Hulk", "Iron Man", "Captain America", "Batman Begins"], ["Quantum of Solace", "Casino Royale", "Skyfall", "Tomorrow Never Dies"],
+    ["Kathryn Bigelow", "Sofia Coppola", "Patty Jenkins", "Ava DuVernay"], ["Lights Out", "Annabelle: Creation", "Shazam!", "In the Dark"],
+    ["Sean Bean", "David Wenham", "Hugo Weaving", "Karl Urban"]]; // A, B, C, D, answers
+var correctArray = ["Iron Man", "Skyfall", "Kathryn Bigelow", "In the Dark", "David Wenham"]; // Correct answer
 var imageArray = []; // Images associated with question
 var questionCounter = 0; // Position of index in questionArray
 var userAnswer; // User's guess
@@ -32,12 +36,15 @@ $(document).on("click", "#start", function(){
     timerControls();
 })
 
-
+// On click function should tell a user if they guessed correct or wrong
 $(document).on("click", ".choice-text", function(){
     userAnswer = $(this).text();
     if (userAnswer === correctArray[questionCounter]){
         clearInterval(timeCLock);
         // Generate win
+    } else {
+        clearInterval(timeCLock);
+        // Generate loss
     }
 })
 // Play function should:
@@ -61,9 +68,6 @@ function timerControls(){
             $(".timer").text(counter);
         }
 }
-
-// On click function should tell a user if they guessed correct or wrong
-    // Use if/else to either generateWin or generateLoss and clear the timer
     
 // Generate win function should do the following when called:
     // Increase the winTally
