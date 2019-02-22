@@ -2,7 +2,27 @@ $(document).ready(function(){
 // Entirety of app.js loads after page loads
 
 // Declare global variables
+var counter = 15; // Timer for questions
+var startingHTML; // Screen upon initially loading page
+var gameHTML; // HTML for the page, changes with situation
+var questionArray = []; // Questions
+var optionArray = []; // A, B, C, D, answers
+var correctArray = []; // Correct answer
+var imageArray = []; // Images associated with question
+var questionCounter = 0; // Position of index in questionArray
+var userAnswer; // User's guess
+var timeCLock; // Timer for each question
+var winTally = 0; // Number of correct answers
+var lossTally = 0; // Number of incorrect answers
+var noAnswerTally = 0; // Number of unanswered questions
 
+
+function startScreen() {
+    startingHTML = "<div class='container justify-content-center' id='startScreen'> <div class='row justify-content-center'> <span class='icon'><i class='fas fa-7x fa-film'></i></span> </div> <div class='row justify-content-center'> <button class='btn btn-lg btn-outline-primary'>Let's Play!</button> </div>";
+    $("#mainContent").append(startingHTML);
+}
+
+startScreen();
 // Page should call a Start button function that adds the start button to the HTML
     // Clicking Start should call the function to Play
 
