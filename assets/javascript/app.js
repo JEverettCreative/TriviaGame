@@ -45,13 +45,13 @@ $(document).on("click", ".choice-text", function(){
         correctAnswer();
     } else {
         clearInterval(timeCLock);
-        // Generate loss
+        wrongAnswer();
     }
 })
 // Play function should:
     // Generate new HTML that includes: Row w/ Timer, Time remaining; Row w/ Question; Stack of answers.
     // Fill the text of the above HTML with elements from the questionArray, possibleArray (possible answers)
-function playTrivia(){
+function playTrivia() {
     triviaHTML = "<div class='container' id='timeContainer'> <div class='row justify-content-center text-center'> <p class='timer-text text-center'><span class='timer'>" + counter + "</span>sec</p> </div> <div class='row justify-content-center text-center'> <p class='question text-center'>" + questionArray[questionCounter] + "</p></div> <div class='row justify-content-center text-center'> <div class='col-sm-12 col-md-8'> <p class='choice-text text-center'>" + optionArray[questionCounter][0] + "</p> <p class='choice-text text-center'>" + optionArray[questionCounter][1] + "</p> <p class='choice-text text-center'>" + optionArray[questionCounter][2] + "</p> <p class='choice-text text-center'>" + optionArray[questionCounter][3] + "</p> </div> </div>";
     $("#mainContent").html(triviaHTML);
 }
@@ -70,26 +70,25 @@ function timerControls(){
         }
 }
 
-function correctAnswer(){
+// Generate win function 
+function correctAnswer() {
     winTally++;
     triviaHTML = "<div class='container' id='timeContainer'> <div class='row justify-content-center text-center'> <p class='timer-text text-center'><span class='timer'>" + counter + "</span>sec</p> </div> <div class='row justify-content-center text-center'> <p class='correct text-center'>Correct!</p></div> <div class='row justify-content-center text-center'> <div class='col-sm-12 col-md-8'>" + imageArray[questionCounter] + "</div> </div>";
     $("#mainContent").html(triviaHTML);
     setTimeout(hold, 5000);
 }
-// Generate win function should do the following when called:
-    // Increase the winTally
-    // Display new HTML that says "Correct!" and includes a relevant image
-    // Increase the question counter to move it along the array of questions
-    // Waits 5 seconds before starting the counter again
 
-// Generate lose function should do the following when called:
-    // Increase the lossTally
-    // Display new HTML that says "Incorrect. The correct answer is " + answerArray[i] and includes a relevant image
-    // Increase the question counter to move it along the array of questions
-    // Waits 5 seconds before starting the counter again
+// Generate lose function
+function wrongAnswer() {
+    lossTally++;
+    triviaHTML = "<div class='container' id='timeContainer'> <div class='row justify-content-center text-center'> <p class='timer-text text-center'><span class='timer'>" + counter + "</span>sec</p> </div> <div class='row justify-content-center text-center'> <p class='incorrect text-center'>Incorrect! The right answer is " + correctArray[questionCounter] + "</p> </div> <div class='row justify-content-center text-center'> <div class='col-sm-12 col-md-8'>" + imageArray[questionCounter] + "</div> </div>";
+    $("#mainContent").html(triviaHTML);
+    setTimeout(hold, 5000);
+}
 
+// Function to check if the game is over and to pause on the answer and image
 function hold() {
-    if (questionCounter < 5) {
+    if (questionCounter < questionArray.length) {
         questionCounter++;
         playTrivia();
         counter = 15;
@@ -99,8 +98,5 @@ function hold() {
     // }
 }
 
-// Create a wait function that evaluates if the questionCounter has hit 5 (higher later)
-    // If it has, it changes the HTML to display the user score tallies and a button to play again
-    // If not, add to the questionCounter, generate new HTML and question, set the counter to 15, then run the countdown
 
 });
