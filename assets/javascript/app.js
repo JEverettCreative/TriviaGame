@@ -28,17 +28,29 @@ startScreen();
 
 $(document).on("click", "#start", function(){
     playTrivia();
+    timerControls();
 })
-
-function playTrivia(){
-    triviaHTML = "<div class='container' id='timeContainer'> <div class='row justify-content-center text-center'> <p class='timer-text text-center'><span class='timer'>" + counter + "</span>sec</p> </div> <div class='row justify-content-center text-center'> <p class='question text-center'>" + questionArray[questionCounter] + "</p></div> <div class='row justify-content-center text-center'> <div class='col-sm-12 col-md-8'> <p class='choice-text text-center'>" + optionArray[questionCounter] + "</p> <p class='choice-text text-center'>" + optionArray[questionCounter] + "</p> <p class='choice-text text-center'>" + optionArray[questionCounter] + "</p> <p class='choice-text text-center'>" + optionArray[questionCounter] + "</p> </div> </div>";
-    $("#mainContent").html(triviaHTML);
-}
 
 // Play function should:
     // Generate new HTML that includes: Row w/ Timer, Time remaining; Row w/ Question; Stack of answers.
     // Fill the text of the above HTML with elements from the questionArray, possibleArray (possible answers)
+function playTrivia(){
+    triviaHTML = "<div class='container' id='timeContainer'> <div class='row justify-content-center text-center'> <p class='timer-text text-center'><span class='timer'>" + counter + "</span>sec</p> </div> <div class='row justify-content-center text-center'> <p class='question text-center'>" + questionArray[questionCounter] + "</p></div> <div class='row justify-content-center text-center'> <div class='col-sm-12 col-md-8'> <p class='choice-text text-center'>" + optionArray[questionCounter] + "</p> <p class='choice-text text-center'>" + optionArray[questionCounter] + "</p> <p class='choice-text text-center'>" + optionArray[questionCounter] + "</p> <p class='choice-text text-center'>" + optionArray[questionCounter] + "</p> </div> </div>";
+    $("#mainContent").html(triviaHTML);
+}
     
+function timerControls(){
+    timeCLock = setInterval(questionTime, 1000);
+        function questionTime(){
+            if (counter === 0) {
+                clearInterval(timeCLock);
+                // Generate loss due timeout
+            } else if (counter > 0) {
+                counter--;
+            }
+            $(".timer").text(counter);
+        }
+}
     // Call the timer function to start a 15 sec countdown
         // Timer function should check if the counter variable (time remaining) is 0
             // If so, it generates a loss due to TimeOut and runs that function
