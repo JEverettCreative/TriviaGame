@@ -4,7 +4,7 @@ $(document).ready(function(){
 // Declare global variables
 var counter = 15; // Timer for questions
 var startingHTML; // Screen upon initially loading page
-var gameHTML; // HTML for the page, changes with situation
+var triviaHTML; // HTML for the page, changes with situation
 var questionArray = []; // Questions
 var optionArray = []; // A, B, C, D, answers
 var correctArray = []; // Correct answer
@@ -17,14 +17,20 @@ var lossTally = 0; // Number of incorrect answers
 var noAnswerTally = 0; // Number of unanswered questions
 
 
+// Page should call a Start button function that adds the start button to the HTML
+    // Clicking Start should call the function to Play
 function startScreen() {
     startingHTML = "<div class='container justify-content-center' id='startScreen'> <div class='row justify-content-center'> <span class='icon'><i class='fas fa-7x fa-film'></i></span> </div> <div class='row justify-content-center'> <button class='btn btn-lg btn-outline-primary'>Let's Play!</button> </div>";
-    $("#mainContent").append(startingHTML);
+    $("#mainContent").html(startingHTML);
 }
 
 startScreen();
-// Page should call a Start button function that adds the start button to the HTML
-    // Clicking Start should call the function to Play
+
+
+function playTrivia(){
+    triviaHTML = "<div class='container' id='timeContainer'> <div class='row text-center'> <p class='timer-text'><span class='timer'>" + counter + "</span>sec</p> </div> <div class='row text-center'> <p class='question'>" + questionArray[questionCounter] + "</p></div> <div class='row text-center'> <div class='col-sm-12 col-md-8'> <p class='choice-text text-center'>" + optionArray[questionCounter] + "</p> <p class='choice-text text-center'>" + optionArray[questionCounter] + "</p> <p class='choice-text text-center'>" + optionArray[questionCounter] + "</p> <p class='choice-text text-center'>" + optionArray[questionCounter] + "</p> </div> </div>";
+    $("#mainContent").html(triviaHTML);
+}
 
 // Play function should:
     // Generate new HTML that includes: Row w/ Timer, Time remaining; Row w/ Question; Stack of answers.
