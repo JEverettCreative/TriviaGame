@@ -5,9 +5,10 @@ $(document).ready(function(){
 var counter = 15; // Timer for questions
 var startingHTML; // Screen upon initially loading page
 var triviaHTML; // HTML for the page, changes with situation
-var questionArray = []; // Questions
-var optionArray = []; // A, B, C, D, answers
-var correctArray = []; // Correct answer
+var questionArray = ["What 2008 film officially kicked off the Marvel Cinematic Universe?", "In which Bond movie does Javier Bardem play the villain?"]; // Questions
+var optionArray = [["Hulk", "Iron Man", "Captain America", "Batman Begins"], ["Quantum of Solace", "Casino Royale", "Skyfall", "Tomorrow Never Dies"]
+    ]; // A, B, C, D, answers
+var correctArray = ["Iron Man", "Skyfall"]; // Correct answer
 var imageArray = []; // Images associated with question
 var questionCounter = 0; // Position of index in questionArray
 var userAnswer; // User's guess
@@ -31,14 +32,23 @@ $(document).on("click", "#start", function(){
     timerControls();
 })
 
+
+$(document).on("click", ".choice-text", function(){
+    userAnswer = $(this).text();
+    if (userAnswer === correctArray[questionCounter]){
+        clearInterval(timeCLock);
+        // Generate win
+    }
+})
 // Play function should:
     // Generate new HTML that includes: Row w/ Timer, Time remaining; Row w/ Question; Stack of answers.
     // Fill the text of the above HTML with elements from the questionArray, possibleArray (possible answers)
 function playTrivia(){
-    triviaHTML = "<div class='container' id='timeContainer'> <div class='row justify-content-center text-center'> <p class='timer-text text-center'><span class='timer'>" + counter + "</span>sec</p> </div> <div class='row justify-content-center text-center'> <p class='question text-center'>" + questionArray[questionCounter] + "</p></div> <div class='row justify-content-center text-center'> <div class='col-sm-12 col-md-8'> <p class='choice-text text-center'>" + optionArray[questionCounter] + "</p> <p class='choice-text text-center'>" + optionArray[questionCounter] + "</p> <p class='choice-text text-center'>" + optionArray[questionCounter] + "</p> <p class='choice-text text-center'>" + optionArray[questionCounter] + "</p> </div> </div>";
+    triviaHTML = "<div class='container' id='timeContainer'> <div class='row justify-content-center text-center'> <p class='timer-text text-center'><span class='timer'>" + counter + "</span>sec</p> </div> <div class='row justify-content-center text-center'> <p class='question text-center'>" + questionArray[questionCounter] + "</p></div> <div class='row justify-content-center text-center'> <div class='col-sm-12 col-md-8'> <p class='choice-text text-center'>" + optionArray[questionCounter][0] + "</p> <p class='choice-text text-center'>" + optionArray[questionCounter][1] + "</p> <p class='choice-text text-center'>" + optionArray[questionCounter][2] + "</p> <p class='choice-text text-center'>" + optionArray[questionCounter][3] + "</p> </div> </div>";
     $("#mainContent").html(triviaHTML);
 }
-    
+
+// Call the timer function to start a 15 sec countdown
 function timerControls(){
     timeCLock = setInterval(questionTime, 1000);
         function questionTime(){
@@ -51,11 +61,6 @@ function timerControls(){
             $(".timer").text(counter);
         }
 }
-    // Call the timer function to start a 15 sec countdown
-        // Timer function should check if the counter variable (time remaining) is 0
-            // If so, it generates a loss due to TimeOut and runs that function
-            // Else if its greater than 0, it should decrement by 1
-            // In either case, it should update the HTML with the counter text
 
 // On click function should tell a user if they guessed correct or wrong
     // Use if/else to either generateWin or generateLoss and clear the timer
