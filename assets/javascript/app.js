@@ -1,5 +1,4 @@
 $(document).ready(function(){
-// Entirety of app.js loads after page loads
 
 // Declare global variables
 var counter = 15; // Timer for questions
@@ -25,7 +24,6 @@ var noAnswerTally = 0; // Number of unanswered questions
 
 
 // Page should call a Start button function that adds the start button to the HTML
-    // Clicking Start should call the function to Play
 function startScreen() {
     startingHTML = "<div class='container justify-content-center' id='startScreen'> <div class='row justify-content-center'> <span class='icon'><i class='fas fa-7x fa-film'></i></span> </div> <div class='row justify-content-center'> <button class='btn btn-lg btn-outline-primary play-round' id='start'>Let's Play!</button> </div>";
     $("#mainContent").html(startingHTML);
@@ -39,7 +37,6 @@ $(document).on("click", ".play-round", function(){
     winTally = 0;
     lossTally = 0;
     noAnswerTally = 0;
-    questionCounter = 0;
 })
 
 // On click function should tell a user if they guessed correct or wrong
@@ -54,8 +51,6 @@ $(document).on("click", ".choice-text", function(){
     }
 })
 // Play function should:
-    // Generate new HTML that includes: Row w/ Timer, Time remaining; Row w/ Question; Stack of answers.
-    // Fill the text of the above HTML with elements from the questionArray, possibleArray (possible answers)
 function playTrivia() {
     triviaHTML = "<div class='container' id='timeContainer'> <div class='row justify-content-center text-center'> <p class='timer-text text-center'><span class='timer'>" + counter + "</span>sec</p> </div> <div class='row justify-content-center text-center'> <p class='question text-center'>" + questionArray[questionCounter] + "</p></div> <div class='row justify-content-center text-center'> <div class='col-sm-12 col-md-8'> <p class='choice-text text-center'>" + optionArray[questionCounter][0] + "</p> <p class='choice-text text-center'>" + optionArray[questionCounter][1] + "</p> <p class='choice-text text-center'>" + optionArray[questionCounter][2] + "</p> <p class='choice-text text-center'>" + optionArray[questionCounter][3] + "</p> </div> </div>";
     $("#mainContent").html(triviaHTML);
@@ -102,11 +97,12 @@ function timeOutAnswer() {
 function gameOver() {
     scoreHTML = "<div class='row justify-content-center'> <h1 class='text-center gameover-text'>Game Over!</h1></div> <div class='row justify-content-center' id='score-row'> <div class='col-lg-3 col-md-6 col-sm-12 justify-content-center' id='score-col'><p class='score-p' id='win-tally'>Correct: " + winTally + "</p> <p class='score-p' id='loss-tally'>Incorrect: " + lossTally + "</p> <p class='score-p' id='timeout-tally'>Unanswered: " + noAnswerTally + "</p></div></div> <div class='row justify-content-center'><button class='btn btn-lg btn-outline-primary play-round' id='play-again'>Play Again?</button></div>";
     $("#mainContent").html(scoreHTML);
+    questionCounter = 0;
 }
 
 // Function to check if the game is over and to pause on the answer and image
 function hold() {
-    if (questionCounter < questionArray.length) {
+    if (questionCounter < questionArray.length - 1) {
         questionCounter++;
         playTrivia();
         counter = 15;
