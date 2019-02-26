@@ -27,15 +27,19 @@ var noAnswerTally = 0; // Number of unanswered questions
 // Page should call a Start button function that adds the start button to the HTML
     // Clicking Start should call the function to Play
 function startScreen() {
-    startingHTML = "<div class='container justify-content-center' id='startScreen'> <div class='row justify-content-center'> <span class='icon'><i class='fas fa-7x fa-film'></i></span> </div> <div class='row justify-content-center'> <button class='btn btn-lg btn-outline-primary' id='start'>Let's Play!</button> </div>";
+    startingHTML = "<div class='container justify-content-center' id='startScreen'> <div class='row justify-content-center'> <span class='icon'><i class='fas fa-7x fa-film'></i></span> </div> <div class='row justify-content-center'> <button class='btn btn-lg btn-outline-primary play-round' id='start'>Let's Play!</button> </div>";
     $("#mainContent").html(startingHTML);
 }
 
 startScreen();
 
-$(document).on("click", "#start", function(){
+$(document).on("click", ".play-round", function(){
     playTrivia();
     timerControls();
+    winTally = 0;
+    lossTally = 0;
+    noAnswerTally = 0;
+    questionCounter = 0;
 })
 
 // On click function should tell a user if they guessed correct or wrong
@@ -95,6 +99,11 @@ function timeOutAnswer() {
     setTimeout(hold, 5000);
 }
 
+function gameOver() {
+    scoreHTML = "<div class='row justify-content-center'> <h1 class='text-center gameover-text'>Game Over!</h1></div> <div class='row justify-content-center' id='score-row'> <div class='col-lg-3 col-md-6 col-sm-12 justify-content-center' id='score-col'><p class='score-p' id='win-tally'>Correct: " + winTally + "</p> <p class='score-p' id='loss-tally'>Incorrect: " + lossTally + "</p> <p class='score-p' id='timeout-tally'>Unanswered: " + noAnswerTally + "</p></div></div> <div class='row justify-content-center'><button class='btn btn-lg btn-outline-primary play-round' id='play-again'>Play Again?</button></div>";
+    $("#mainContent").html(scoreHTML);
+}
+
 // Function to check if the game is over and to pause on the answer and image
 function hold() {
     if (questionCounter < questionArray.length) {
@@ -102,13 +111,9 @@ function hold() {
         playTrivia();
         counter = 15;
         timerControls();
-    } // else {
-        // gameOver();
-    // }
-}
-
-function gameOver() {
-    scoreHTML = 
+    }  else {
+         gameOver();
+    }
 }
 
 
