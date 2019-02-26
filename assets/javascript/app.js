@@ -5,6 +5,7 @@ $(document).ready(function(){
 var counter = 15; // Timer for questions
 var startingHTML; // Screen upon initially loading page
 var triviaHTML; // HTML for the page, changes with situation
+var scoreHTML; // HTML for score and play again button
 var questionArray = ["What 2008 film officially kicked off the Marvel Cinematic Universe?", "In which Bond movie does Javier Bardem play the villain?",
     "Who was the first female director to win an Oscar for Best Director?", "Which of the following films was NOT directed by David F. Sandberg?",
     "Who played Faramir in the live action Lord of the Rings movies?"]; // Questions
@@ -62,7 +63,7 @@ function timerControls(){
         function questionTime(){
             if (counter === 0) {
                 clearInterval(timeCLock);
-                // Generate loss due timeout
+                timeOutAnswer();
             } else if (counter > 0) {
                 counter--;
             }
@@ -86,6 +87,14 @@ function wrongAnswer() {
     setTimeout(hold, 5000);
 }
 
+// Generate timeout loss function
+function timeOutAnswer() {
+    noAnswerTally++;
+    triviaHTML = "<div class='container' id='timeContainer'> <div class='row justify-content-center text-center'> <p class='timer-text text-center'><span class='timer'>" + counter + "</span>sec</p> </div> <div class='row justify-content-center text-center'> <p class='timeout text-center'>Time's up! The right answer is " + correctArray[questionCounter] + "</p> </div> <div class='row justify-content-center text-center'> <div class='col-sm-12 col-md-8'>" + imageArray[questionCounter] + "</div> </div>";
+    $("#mainContent").html(triviaHTML);
+    setTimeout(hold, 5000);
+}
+
 // Function to check if the game is over and to pause on the answer and image
 function hold() {
     if (questionCounter < questionArray.length) {
@@ -96,6 +105,10 @@ function hold() {
     } // else {
         // gameOver();
     // }
+}
+
+function gameOver() {
+    scoreHTML = 
 }
 
 
