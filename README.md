@@ -1,5 +1,5 @@
 # Film Trivia Game
-Film-themed trivia game built using jQuery and JavaScript
+Film-themed trivia game built using jQuery and JavaScript.
 
 ## Contributors
 @JEverettCreative
@@ -10,8 +10,11 @@ Film-themed trivia game built using jQuery and JavaScript
 ## About
 * A small trivia game that utilizes jQuery and JavaScript to inject HTML onto the page for each phase of the game (start screen, active gameplay, or score screen) as well as each question and answer. 
 
+## Deployed Project
+https://jeverettcreative.github.io/TriviaGame/
+
 ## How-to use this code
-* Simply pull the files and open them in your web browser of choice to view.
+* Simply pull the files and open them in your web browser of choice to view, or visit the deployed project above.
 
 ## Contributing Guidelines
 All contributions and suggestions are welcome!
